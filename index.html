@@ -119,9 +119,8 @@
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
       
       <div class="flex items-center space-x-3 cursor-pointer" onclick="resetToHome()">
-        <div class="bg-white p-1.5 rounded-xl flex items-center justify-center shadow-lg transition-transform hover:scale-105 duration-250">
-          <span class="text-[#005EA6] font-black text-xl tracking-tighter">TNB</span>
-          <span class="text-[#ED1C24] font-bold text-xl ml-0.5">⚡</span>
+        <div class="bg-white p-1 rounded-xl flex items-center justify-center shadow-lg transition-transform hover:scale-[1.05] duration-250 w-12 h-12 overflow-hidden">
+          <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23005EA6'/><circle cx='50' cy='50' r='38' fill='%23ffffff'/><path d='M50 18 C65 18, 76 30, 76 45 C76 65, 50 82, 50 82 C50 82, 24 65, 24 45 C24 30, 35 18, 50 18 Z' fill='%23005EA6'/><path d='M52 28 L36 53 L48 53 L44 74 L62 46 L50 46 Z' fill='%23ED1C24'/></svg>" alt="TNB Penang Asset Token" class="w-full h-full object-contain">
         </div>
         <div>
           <h1 class="text-white font-extrabold text-xs md:text-sm tracking-wide leading-tight uppercase">ASSET MANAGEMENT SYSTEM</h1>
@@ -161,10 +160,10 @@
 
   <div id="adminTabNav" class="hidden max-w-7xl mx-auto px-4 pt-6 no-print">
     <div class="flex bg-slate-900/60 border border-slate-800 p-1.5 rounded-xl gap-2 w-full max-w-lg">
-      <button id="btnTabField" onclick="showSection('fieldDashboardPage')" class="flex-1 py-2.5 rounded-lg text-xs font-black transition flex items-center justify-center gap-2">
+      <button id="btnTabField" onclick="showSection('fieldDashboardPage')" class="flex-1 py-2.5 rounded-lg text-xs font-black text-white bg-[#005EA6] shadow transition flex items-center justify-center gap-2">
         <i class="fa-solid fa-list-check"></i> Field Desk
       </button>
-      <button id="btnTabAdmin" onclick="showAdminSection()" class="flex-1 py-2.5 rounded-lg text-xs font-black transition flex items-center justify-center gap-2">
+      <button id="btnTabAdmin" onclick="showAdminSection()" class="flex-1 py-2.5 rounded-lg text-xs font-black text-slate-400 bg-transparent hover:text-white transition flex items-center justify-center gap-2">
         <i class="fa-solid fa-screwdriver-wrench"></i> Admin Control Center
       </button>
     </div>
@@ -535,14 +534,17 @@
             
             <p class="text-[10px] text-slate-400 leading-relaxed">
               Accepts exports conforming to the <strong class="text-white">"Asset Tagging Apr 2026 (DUE 26 MEI 26) (1).xlsx"</strong> template format. 
-              The system automatically parses core columns (A to W) while preserving any active on-site field updates (Columns X to AI).
+              The system automatically extracts entries where the state fields map to <strong class="text-emerald-400">Penang / Pulau Pinang</strong>, dynamically streaming lines across regional substations while dropping rows belonging to other territories.
             </p>
 
-            <div id="csvDropZone" class="border-2 border-dashed border-slate-800 rounded-xl p-6 text-center cursor-pointer hover:border-blue-500 hover:bg-blue-950/10 transition flex flex-col items-center justify-center space-y-2">
-              <i class="fa-solid fa-cloud-arrow-up text-3xl text-slate-500"></i>
-              <span class="text-xs font-bold text-slate-200">Select or drop CSV file</span>
-              <span class="text-[9px] text-slate-500 uppercase tracking-widest">Supports "Asset Tagging Apr 2026" CSV sheets</span>
-              <input id="csvFileInput" type="file" class="hidden" accept=".csv" onchange="handleCsvUpload(event)">
+            <div class="relative border-2 border-dashed border-slate-800 rounded-xl p-6 text-center hover:border-blue-500 hover:bg-blue-950/10 transition flex flex-col items-center justify-center space-y-2 cursor-pointer">
+              <input id="csvFileInput" type="file" accept=".csv" onchange="handleCsvUpload(event)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20">
+              
+              <div class="flex flex-col items-center justify-center space-y-2 relative z-10 pointer-events-none">
+                <i class="fa-solid fa-cloud-arrow-up text-3xl text-slate-500"></i>
+                <span class="text-xs font-bold text-slate-200">Click to Select or Drop CSV File</span>
+                <span class="text-[9px] text-slate-500 uppercase tracking-widest">Supports "Asset Tagging Apr 2026" CSV sheets</span>
+              </div>
             </div>
           </div>
 
@@ -674,7 +676,7 @@
               </select>
             </div>
             <div>
-              <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Task Required (Col X)</label>
+              <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1">Task Required (Col X)</label>
               <select id="editTaskRequired" class="w-full px-3 py-2 text-xs rounded-xl glass-input text-slate-200 bg-slate-950">
                 <option value="Tag Asset">Tag Asset</option>
                 <option value="Transfer">Transfer</option>
@@ -709,7 +711,7 @@
           </h4>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             
-            <div class="p-4 rounded-xl bg-slate-950 border border-slate-850 flex flex-col items-center justify-center space-y-3">
+            <div class="p-4 rounded-xl bg-slate-950 border border-slate-850 w-full flex flex-col items-center justify-center space-y-3">
               <div class="flex w-full justify-between items-center border-b border-slate-900 pb-2">
                 <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Picture 1: Sticker Reader Scan</span>
                 <div class="flex bg-slate-900 p-0.5 rounded-lg border border-slate-800 text-[9px] font-bold">
@@ -725,15 +727,15 @@
                   <i class="fa-solid fa-qrcode text-3xl mb-1 text-blue-500"></i>
                   <span class="text-[9px]">QR Decoder Target Frame Empty</span>
                 </div>
-                <img id="mediaImg1" src="" class="absolute inset-0 w-full h-full object-cover hidden">
+                <img id="mediaImg1" src="" class="absolute inset-0 w-full h-full object-cover hidden" alt="Asset scan frame text">
               </div>
               <input type="file" id="fileInput1" accept="image/*" class="hidden" onchange="handleGalleryUpload(1, event)">
-              <button id="cameraBtn1" onclick="executeMediaTrigger(1)" class="w-full py-2 bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-200 text-xs font-bold rounded-lg transition">
+              <button id="cameraBtn1" onclick="executeMediaTrigger(1)" class="w-full py-2 bg-slate-900 border border-slate-800 hover:border-slate-750 text-slate-200 text-xs font-bold rounded-lg transition">
                 <i class="fa-solid fa-expand mr-1"></i> Boot QR Scanner
               </button>
             </div>
 
-            <div class="p-4 rounded-xl bg-slate-950 border border-slate-850 flex flex-col items-center justify-center space-y-3">
+            <div class="p-4 rounded-xl bg-slate-950 border border-slate-850 w-full flex flex-col items-center justify-center space-y-3">
               <div class="flex w-full justify-between items-center border-b border-slate-900 pb-2">
                 <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Picture 2: Asset Context</span>
                 <div class="flex bg-slate-900 p-0.5 rounded-lg border border-slate-800 text-[9px] font-bold">
@@ -748,7 +750,7 @@
                   <i class="fa-solid fa-toolbox text-3xl mb-1"></i>
                   <span class="text-[9px]">Asset Capture Buffer Empty</span>
                 </div>
-                img id="mediaImg2" src="" class="absolute inset-0 w-full h-full object-cover hidden">
+                <img id="mediaImg2" src="" class="absolute inset-0 w-full h-full object-cover hidden" alt="Environment context framing snapshot description text">
               </div>
               <input type="file" id="fileInput2" accept="image/*" class="hidden" onchange="handleGalleryUpload(2, event)">
               <button id="cameraBtn2" onclick="executeMediaTrigger(2)" class="w-full py-2 bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-200 text-xs font-bold rounded-lg transition">
@@ -859,7 +861,7 @@
       { id: "TNB-10294812", name: "RING MAIN UNIT (RMU) GAS INSULATED", class: "3013-RMU", serial: "RMU-5527A12", cocd: "1000", costCenter: "6200-PG-NT", pillar: "Nibong Tebal", pic: "SITI RAHMAH (TNB9012)", status: "Pending", taskRequired: "Tag Asset", locationLevel: "Feeder Pillar C", sizeSpecs: "11kV Sf6 Insulated", remarks: "Pressure gauge reads within nominal yellow threshold", lastUpdated: "2026-06-23 14:02:00", lastStaffId: "SYS-INIT", facility: "Nibong Tebal" },
       { id: "TNB-88271922", name: "SUBSTATION PROTECTION RELAY CABINET", class: "3014-RELAY", serial: "REL-992147", cocd: "1000", costCenter: "6300-PG-BM", pillar: "Bertam", pic: "MUHAMMAD FAIZ (TNB4421)", status: "Done", taskRequired: "Tag Asset", locationLevel: "Control Room 3", sizeSpecs: "ABB REF615 Feeder Prot", remarks: "VERIFIED. STATUS: PASSED. ALL LOGS CLEARED.", lastUpdated: "2026-06-23 09:30:00", lastStaffId: "staff123", facility: "Bertam" },
       { id: "TNB-23481927", name: "UNINTERRUPTIBLE POWER SUPPLY (UPS) BATTERY BANK", class: "3015-UPS", serial: "UPS-00129B", cocd: "1000", costCenter: "6400-PG-BB", pillar: "Bayan Baru", pic: "SANJAY KUMAR (TNB1125)", status: "In Progress", taskRequired: "Transfer", locationLevel: "Battery Room A", sizeSpecs: "110VDC Lead-Acid 200AH", remarks: "Scheduled decommission and shifting to state storage unit next week", lastUpdated: "2026-06-23 16:45:00", lastStaffId: "staff123", facility: "Bayan Baru" },
-      { id: "TNB-90182741", name: "AUTOMATIC VOLTAGE REGULATOR (AVR) GEAR", class: "3016-AVR", serial: "AVR-112349C", cocd: "1000", costCenter: "6100-PG-ST", pillar: "State Penang", pic: "HAZWAN ALI (TNB8812)", status: "Pending", taskRequired: "Tag Asset", locationLevel: "Basement Bay 3", sizeSpecs: "150kVA Digital Compensator", remarks: "Awaiting mechanical verification checks", lastUpdated: "2026-06-23 10:10:00", lastStaffId: "SYS-INIT", facility: "State Penang" },
+      { id: "TNB-48271038", name: "AUTOMATIC VOLTAGE REGULATOR (AVR) GEAR", class: "3016-AVR", serial: "AVR-112349C", cocd: "1000", costCenter: "6100-PG-ST", pillar: "State Penang", pic: "HAZWAN ALI (TNB8812)", status: "Pending", taskRequired: "Tag Asset", locationLevel: "Basement Bay 3", sizeSpecs: "150kVA Digital Compensator", remarks: "Awaiting mechanical verification checks", lastUpdated: "2026-06-23 10:10:00", lastStaffId: "SYS-INIT", facility: "State Penang" },
       { id: "TNB-61029482", name: "AC DISTRIBUTION BOARD PANELS", class: "3017-ACDB", serial: "DB-5512A721", cocd: "1000", costCenter: "6500-PG-SJ", pillar: "Seberang Jaya", pic: "SITI RAHMAH (TNB9012)", status: "Done", taskRequired: "Tag Asset", locationLevel: "Main Plant LV Room", sizeSpecs: "415V ACDB IP54 Cabinet", remarks: "TAGGED OK. STICKER ON THE DOORSIDE FLAP.", lastUpdated: "2026-06-23 13:20:00", lastStaffId: "staff123", facility: "Seberang Jaya" },
       { id: "TNB-33491028", name: "HIGH-VOLTAGE OVERLAP ISOLATOR SWITCH", class: "3018-ISOLATOR", serial: "ISO-10928A", cocd: "1000", costCenter: "6500-PG-SJ", pillar: "Seberang Jaya", pic: "TAN JIN SHEN (TNB7321)", status: "Pending", taskRequired: "Tag Asset", locationLevel: "Switchyard Bay 12", sizeSpecs: "33kV 1250A Rotary Isolator", remarks: "Insulator clean needed", lastUpdated: "2026-06-23 14:15:00", lastStaffId: "SYS-INIT", facility: "Seberang Jaya" },
       { id: "TNB-55481927", name: "DIESEL BACKUP GENERATOR CONTROL UNIT", class: "3019-GEN", serial: "GEN-882711D", cocd: "1000", costCenter: "6100-PG-ST", pillar: "State Penang", pic: "SANJAY KUMAR (TNB1125)", status: "Pending", taskRequired: "Tag Asset", locationLevel: "Aux Generator Shed", sizeSpecs: "500kVA Cummins Turbocharged", remarks: "Requires fuel system check", lastUpdated: "2026-06-23 15:30:00", lastStaffId: "SYS-INIT", facility: "State Penang" }
@@ -905,17 +907,9 @@
           analytics = getAnalytics(app);
           isFirebaseReady = true;
 
-          onAuthStateChanged(auth, (user) => {
-            if (user) {
-              console.log("Authenticated context bound: ", user.email);
-            } else {
-              console.log("No active cloud session found.");
-            }
-          });
-
+          setupLiveSnapshotStreaming();
           addAuditLog("SYS-SYNC", "System Sync", "Substation Offline Mode & Database active.");
           await loadCloudDatabase();
-          setupLiveSnapshotStreaming();
         } catch (e) {
           console.error("Firebase connection fallback routing activated.", e);
           isFirebaseReady = false;
@@ -1016,7 +1010,7 @@
         localUsers[id] = { ...localUsers[id], ...object };
         localStorage.setItem('tnb_ams_users', JSON.stringify(localUsers));
         if (isFirebaseReady) {
-          await setDoc(doc(db, "users", id), localUsers[id], { merge: true });
+          await setDoc(doc(db, "users", id), localUsers[id], { merge: merge });
         }
       }
       syncGlobalState();
@@ -1470,7 +1464,6 @@
       reader.readAsDataURL(file);
     };
 
-    // UPGRADE #2: Continuous Point-And-Shoot QR Code Decoder Integration (Fixing Comment Block)
     function triggerLiveQRDecoder() {
       const targetDiv = document.getElementById('qrReaderContainer1');
       const placeholder = document.getElementById('placeholder1');
@@ -1557,7 +1550,7 @@
       placeholder.classList.add('hidden');
       img.classList.add('hidden');
       video.classList.remove('hidden');
-      button.innerHTML = `<i class="fa-solid fa-circle-dot text-red-500 mr-1"></i> Capture Frame`;
+      button.innerHTML = `<i class="fa-solid fa-camera text-red-500 mr-1"></i> Capture Frame`;
 
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -1649,7 +1642,6 @@
       }, 900);
     }
 
-    // UPGRADE #1: Enterprise Asynchronous Cloud File Storage Pipe
     async function uploadBase64ImageToCloudBucket(assetId, imageIndex, base64Data) {
       if (!isFirebaseReady || !base64Data || !base64Data.startsWith("data:image")) return null;
       try {
@@ -1843,25 +1835,21 @@
       link.click();
       document.body.removeChild(link);
 
-      addAuditLog(currentUser.staffId, "Mother File Export", `Compiled and exported verified sheets containing columns A to AI.`);
-      showToast(`Mother File compilation complete. Synced CSV downloaded.`, "success");
+      addAuditLog(currentUser.staffId, "Mother File Export", `Compiled and exported verified sheets containing columns A through AI.`);
+      showToast("Mother File compilation complete. Synced CSV downloaded.", "success");
     }
 
-    // UPGRADE #3: HQ Spreadsheet Ingestion Structural Validator Loop
     function validateSpreadsheetRowStructure(columns, rowIndex) {
-      if (!columns[1] || !columns[1].startsWith("TNB-")) {
-        return `Row ${rowIndex}: Invalid asset pattern match descriptor key ("${columns[1] || 'Empty'}"). Code must lead with 'TNB-' syntax strings.`;
+      if (!columns[1]) {
+        return `Row ${rowIndex}: Primary identification tag index empty inside row array data references.`;
       }
-      if (!columns[4] || columns[4].trim().length < 4) {
-        return `Row ${rowIndex}: Structural description cell inside Column E is blank or short.`;
-      }
-      if (!columns[3]) {
-        return `Row ${rowIndex}: Categorization code index missing from Column D.`;
+      if (!columns[4] || columns[4].trim().length < 2) {
+        return `Row ${rowIndex}: Asset description title column field missing or empty.`;
       }
       return null;
     }
 
-    // ================= HQ CSV INGESTION PARSING MODULES =================
+    // ================= HQ CSV INGESTION METRIC WITH STRICT STATE SELECTORS =================
     window.handleCsvUpload = function(e) {
       const file = e.target.files[0];
       if (!file) return;
@@ -1877,22 +1865,45 @@
           }
 
           let headerRowIndex = -1;
+          let colMap = { id: 1, name: 4, class: 3, serial: 5, costCenter: 6, facility: 8, pic: 9, cocd: 10, acqCost: 12, nbv: 13, state: -1 };
           
-          for (let i = 0; i < Math.min(lines.length, 25); i++) {
-            const line = lines[i].toLowerCase();
-            if (line.includes("asset") && (line.includes("no.") || line.includes("serial") || line.includes("cocd"))) {
+          for (let i = 0; i < Math.min(lines.length, 40); i++) {
+            const lineClean = lines[i].toLowerCase();
+            if (lineClean.includes("asset") || lineClean.includes("serial") || lineClean.includes("description") || lineClean.includes("no.")) {
               headerRowIndex = i;
+              const splitHeaders = lines[i].split(',').map(c => c.replace(/"/g, '').trim().toLowerCase());
+              
+              const findIdx = (keywords) => splitHeaders.findIndex(h => keywords.some(k => h.includes(k)));
+              
+              let mappedId = findIdx(["asset number", "kod asset", "asset no", "no. asset"]);
+              if (mappedId !== -1) colMap.id = mappedId;
+              
+              let mappedName = findIdx(["description", "perkara", "nama asset", "asset description"]);
+              if (mappedName !== -1) colMap.name = mappedName;
+
+              let mappedClass = findIdx(["class", "jenis", "kategori", "asset class"]);
+              if (mappedClass !== -1) colMap.class = mappedClass;
+
+              let mappedSerial = findIdx(["serial number", "no. siri", "no siri", "kilang"]);
+              if (mappedSerial !== -1) colMap.serial = mappedSerial;
+
+              let mappedFac = findIdx(["location", "cawangan", "pillar", "stesen", "pencawang", "cost center desc"]);
+              if (mappedFac !== -1) colMap.facility = mappedFac;
+
+              let mappedState = findIdx(["state", "negeri", "wilayah", "region"]);
+              if (mappedState !== -1) colMap.state = mappedState;
+              
               break;
             }
           }
 
           if (headerRowIndex === -1) {
-            showToast("Failed to auto-detect starting table headers. Ensure standard columns exist.", "error");
-            return;
+            headerRowIndex = 0; 
           }
 
           let updateCount = 0;
           let preserveCount = 0;
+          let skippedOtherStates = 0;
           let validationErrors = [];
 
           for (let i = headerRowIndex + 1; i < lines.length; i++) {
@@ -1902,19 +1913,68 @@
             const cols = line.split(',').map(c => c.replace(/"/g, '').trim());
             if (cols.length < 4) continue;
 
+            let rawAssetId = cols[colMap.id];
+            if (!rawAssetId) continue;
+
+            if (!isNaN(rawAssetId) && rawAssetId.length > 0) {
+              rawAssetId = `TNB-${rawAssetId}`;
+            }
+
+            // STRICT REGIONAL STATE GUARD PIPELINE
+            let rowIsPenang = false;
+            
+            if (colMap.state !== -1 && cols[colMap.state]) {
+              const stateText = cols[colMap.state].toLowerCase();
+              if (stateText.includes("penang") || stateText.includes("pinang")) {
+                rowIsPenang = true;
+              }
+            }
+            
+            if (!rowIsPenang && colMap.facility !== -1 && cols[colMap.facility]) {
+              const facText = cols[colMap.facility].toLowerCase();
+              if (
+                facText.includes("anson") || facText.includes("bertam") || 
+                facText.includes("bayan") || facText.includes("nibong") || 
+                facText.includes("seberang") || facText.includes("penang") || 
+                facText.includes("pinang") || facText.includes("pg-")
+              ) {
+                rowIsPenang = true;
+              }
+            }
+
+            if (!rowIsPenang && cols[colMap.costCenter]) {
+              const ccText = cols[colMap.costCenter];
+              if (ccText.startsWith("6100") || ccText.startsWith("6101") || ccText.startsWith("6200") || ccText.startsWith("6300") || ccText.startsWith("6400") || ccText.startsWith("6500")) {
+                rowIsPenang = true;
+              }
+            }
+
+            if (!rowIsPenang) {
+              skippedOtherStates++;
+              continue;
+            }
+
             const structuralViolationError = validateSpreadsheetRowStructure(cols, i + 1);
             if (structuralViolationError) {
               validationErrors.push(structuralViolationError);
               continue;
             }
 
-            const id = cols[1];
-            const name = cols[4];
-            const className = cols[3];
-            const serial = cols[5] || "GEN-SNo-MOCK";
-            const facility = cols[8] || "Jln Anson";
+            const name = cols[colMap.name] || "HQ ELECTRICAL DISTRIBUTION GRID ASSIGNMENT";
+            const className = cols[colMap.class] || "3010-GENERIC";
+            const serial = cols[colMap.serial] || "SNo-UNKNOWN";
+            let parsedFacility = cols[colMap.facility] || "Jln Anson";
 
-            const matchIndex = localAssets.findIndex(a => a.id === id);
+            let targetedTabFacility = "Jln Anson";
+            const facLower = parsedFacility.toLowerCase();
+            if (facLower.includes("anson")) targetedTabFacility = "Jln Anson";
+            else if (facLower.includes("bertam")) targetedTabFacility = "Bertam";
+            else if (facLower.includes("bayan") || facLower.includes("baru")) targetedTabFacility = "Bayan Baru";
+            else if (facLower.includes("nibong") || facLower.includes("tebal")) targetedTabFacility = "Nibong Tebal";
+            else if (facLower.includes("seberang") || facLower.includes("jaya")) targetedTabFacility = "Seberang Jaya";
+            else targetedTabFacility = "State Penang";
+
+            const matchIndex = localAssets.findIndex(a => a.id.toUpperCase() === rawAssetId.toUpperCase());
             
             if (matchIndex > -1) {
               if (localAssets[matchIndex].status === 'Done') {
@@ -1926,22 +1986,23 @@
                 name: name,
                 class: className,
                 serial: serial,
-                facility: facility
+                facility: targetedTabFacility,
+                pillar: parsedFacility
               };
               updateCount++;
             } else {
               const newAsset = {
-                id,
-                name,
+                id: rawAssetId,
+                name: name,
                 class: className,
-                serial,
-                costCenter: cols[6] || "6100-PG-ST",
-                pillar: cols[8] || facility,
-                pic: cols[9] || "Unassigned",
-                cocd: cols[10] || "1000",
-                acqCost: cols[12] || "RM 0.00",
-                netBookValue: cols[13] || "RM 0.00",
-                facility,
+                serial: serial,
+                costCenter: cols[colMap.costCenter] || "6100-PG-ST",
+                pillar: parsedFacility,
+                pic: cols[colMap.pic] || "Unassigned Operational Team",
+                cocd: cols[colMap.cocd] || "1000",
+                acqCost: cols[colMap.acqCost] || "RM 0.00",
+                netBookValue: cols[colMap.nbv] || "RM 0.00",
+                facility: targetedTabFacility,
                 status: "Pending",
                 taskRequired: "Tag Asset",
                 locationLevel: "",
@@ -1956,18 +2017,26 @@
           }
 
           if (validationErrors.length > 0) {
-            console.error("Spreadsheet integrity warnings reported: ", validationErrors);
-            alert(`Spreadsheet ingestion completed with errors:\n\n${validationErrors.slice(0, 4).join('\n')}\n\n... Total validation warnings: ${validationErrors.length} rows dropped.`);
+            console.error("Spreadsheet integrity parameters dropped rows log: ", validationErrors);
           }
 
           localStorage.setItem('tnb_ams_assets', JSON.stringify(localAssets));
-          addAuditLog(currentUser.staffId, "CSV Ingestion", `Uploaded inventory file: "${file.name}". Processed: ${updateCount} rows. Preserved on-site changes: ${preserveCount} rows.`);
-          showToast(`Ingestion complete! Integrated ${updateCount} records. Preserved ${preserveCount} local updates.`, "success");
+          
+          let logMsg = `Uploaded inventory file: "${file.name}". Integrated ${updateCount} rows to Penang.`;
+          let toastMsg = `Ingestion complete! Integrated ${updateCount} Penang records.`;
+          if (skippedOtherStates > 0) {
+            logMsg += ` Skipped ${skippedOtherStates} rows belonging to other states.`;
+            toastMsg += ` (Filtered out ${skippedOtherStates} rows from other states)`;
+          }
+
+          addAuditLog(currentUser.staffId, "CSV Ingestion", logMsg);
+          showToast(toastMsg, "success");
           
           syncGlobalState();
+          renderFacilityTabs();
         } catch (err) {
           console.error(err);
-          showToast("Reconciliation failed. Check column structures.", "error");
+          showToast("Reconciliation failed. Check sheet array layout values.", "error");
         }
       };
 
